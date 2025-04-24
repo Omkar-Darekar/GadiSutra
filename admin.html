@@ -2,26 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gadi Sutra - Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header>
-    <h1>Admin Panel</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="calendar.html">Appointments</a>
-        <a href="admin.html">Admin Panel</a>
-    </nav>
-</header>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-6">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="logo.png" alt="Gadi Sutra Logo" class="h-12 mr-4">
+                <div>
+                    <h1 class="text-3xl font-bold">Admin Panel</h1>
+                    <p class="text-sm">Manage Appointments & Recommendations</p>
+                </div>
+            </div>
+            <nav class="space-x-6">
+                <a href="index.html" class="hover:text-blue-300 transition">Home</a>
+                <a href="calendar.html" class="hover:text-blue-300 transition">Appointments</a>
+                <a href="admin.html" class="hover:text-blue-300 transition">Admin Panel</a>
+            </nav>
+        </div>
+    </header>
 
-<main>
-    <h2>Manage Appointments & Recommendations</h2>
-    <p>Feature coming soon! You will be able to view user requests and update car suggestions.</p>
-</main>
+    <main class="container mx-auto px-4 py-12 text-center">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">Manage Your Platform</h2>
+        <p class="text-gray-600 mb-6">Feature coming soon! Admins will be able to view user requests, manage appointments, and update car recommendations.</p>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
+            <p class="text-gray-700">Stay tuned for powerful tools to streamline your operations.</p>
+        </div>
+    </main>
 
-<footer>
-    <p>&copy; 2025 Gadi Sutra. All rights reserved.</p>
-</footer>
+    <footer class="bg-blue-900 text-white text-center py-4">
+        <p>&copy; 2025 Gadi Sutra. All rights reserved.</p>
+    </footer>
 </body>
 </html>
