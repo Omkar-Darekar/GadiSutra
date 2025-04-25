@@ -1,47 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition duration-500">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gadi Sutra - Appointment Calendar</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-6">
+<body class="font-poppins bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition duration-500 ease-in-out">
+
+    <header class="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-4 shadow-lg fixed w-full z-50 top-0">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
-                <img src="logo.png" alt="Gadi Sutra Logo" class="h-12 mr-4">
+                <img src="car-sutra-high-resolution-logo.png" alt="Gadi Sutra Logo" class="h-12 w-12 mr-3"/>
                 <div>
-                    <h1 class="text-3xl font-bold">Appointment Calendar</h1>
-                    <p class="text-sm">Book Your Consultation</p>
+                    <h1 class="text-3xl font-bold tracking-tight">Gadi Sutra</h1>
+                    <p class="text-sm italic opacity-90">Book Your Consultation</p>
                 </div>
             </div>
-            <nav class="space-x-6">
-                <a href="index.html" class="hover:text-blue-300 transition">Home</a>
-                <a href="calendar.html" class="hover:text-blue-300 transition">Appointments</a>
-                <a href="admin.html" class="hover:text-blue-300 transition">Admin Panel</a>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-blue-200 transition duration-300">Home</a>
+                <a href="calendar.html" class="text-blue-200 font-semibold">Appointments</a> <a href="admin.html" class="hover:text-blue-200 transition duration-300">Admin Panel</a>
+                 <a href="index.html#pdi" class="pdi-button bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Book PDI</a>
+            </nav>
+            <button id="mobile-menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="dark-toggle" class="ml-4 text-xl focus:outline-none transition duration-300 ease-in-out">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="fixed inset-0 bg-blue-900 bg-opacity-95 z-40 hidden md:hidden">
+            <div class="flex justify-end p-4">
+                 <button id="close-mobile-menu" class="text-white text-3xl focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col items-center space-y-6 text-lg text-white">
+                <a href="index.html" class="hover:text-blue-200 transition duration-300">Home</a>
+                <a href="calendar.html" class="text-blue-200 font-semibold">Appointments</a>
+                <a href="admin.html" class="hover:text-blue-200 transition duration-300">Admin Panel</a>
+                 <a href="index.html#pdi" class="pdi-button bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Book PDI</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12">
-        <section class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-8">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Book a Consultation</h2>
-            <div id="consultation-form" class="space-y-4">
-                <input type="text" placeholder="Your Name" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <input type="email" placeholder="Your Email" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <input type="date" required class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="submit" class="w-full bg-blue-900 text-white p-3 rounded-md hover:bg-blue-800 transition">Book Appointment</button>
-            </div>
-            <p id="form-message" class="text-center mt-4 text-green-600"></p>
-        </section>
+    <main class="container mx-auto px-4 py-12 mt-16 min-h-screen"> <section class="max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 animate__animated animate__fadeInUp"> <h2 class="text-3xl font-semibold text-gray-900 dark:text-white mb-6 text-center">Schedule Your Consultation</h2>
+            <form id="consultation-form" class="space-y-5"> <div>
+                     <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Name</label>
+                     <input type="text" id="name" placeholder="Enter your name" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"/>
+                </div>
+                 <div>
+                     <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Email</label>
+                     <input type="email" id="email" placeholder="Enter your email" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"/>
+                </div>
+                 <div>
+                     <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Preferred Date</label>
+                     <input type="date" id="date" required class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"/>
+                </div>
+                 <div>
+                     <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number (Optional)</label>
+                     <input type="tel" id="phone" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"/>
+                 </div>
+                 <div>
+                     <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Message (Optional)</label>
+                    <textarea id="message" placeholder="Tell us about your car needs..." class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"></textarea>
+                 </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md font-semibold text-lg hover:bg-blue-700 transition duration-300 shadow-md">Book Appointment</button>
+            </form>
+            <p id="form-message" class="text-center mt-6 text-sm font-medium"></p> </section>
     </main>
 
-    <footer class="bg-blue-900 text-white text-center py-4">
-        <p>&copy; 2025 Gadi Sutra. All rights reserved.</p>
+    <footer class="bg-blue-900 text-white text-center py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-6 mb-4">
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+            </div>
+            <p class="text-sm opacity-90">© 2025 Gadi Sutra. All rights reserved.</p>
+            <p class="text-xs mt-1 opacity-80">Crafted with <span class="heart text-red-500">❤️</span> in India</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <script src="script.js"></script> </body>
 </html>

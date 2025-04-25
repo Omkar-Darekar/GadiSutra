@@ -1,40 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition duration-500">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gadi Sutra - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-sans">
-    <header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-6">
+<body class="font-poppins bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition duration-500 ease-in-out">
+
+    <header class="bg-gradient-to-r from-blue-800 to-blue-600 text-white py-4 shadow-lg fixed w-full z-50 top-0">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center">
-                <img src="logo.png" alt="Gadi Sutra Logo" class="h-12 mr-4">
+                <img src="car-sutra-high-resolution-logo.png" alt="Gadi Sutra Logo" class="h-12 w-12 mr-3"/>
                 <div>
-                    <h1 class="text-3xl font-bold">Admin Panel</h1>
-                    <p class="text-sm">Manage Appointments & Recommendations</p>
+                    <h1 class="text-3xl font-bold tracking-tight">Gadi Sutra</h1>
+                    <p class="text-sm italic opacity-90">Admin Panel</p>
                 </div>
             </div>
-            <nav class="space-x-6">
-                <a href="index.html" class="hover:text-blue-300 transition">Home</a>
-                <a href="calendar.html" class="hover:text-blue-300 transition">Appointments</a>
-                <a href="admin.html" class="hover:text-blue-300 transition">Admin Panel</a>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-blue-200 transition duration-300">Home</a>
+                <a href="calendar.html" class="hover:text-blue-200 transition duration-300">Appointments</a>
+                <a href="admin.html" class="text-blue-200 font-semibold">Admin Panel</a> <a href="index.html#pdi" class="pdi-button bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Book PDI</a>
+            </nav>
+             <button id="mobile-menu-toggle" class="md:hidden text-white text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <button id="dark-toggle" class="ml-4 text-xl focus:outline-none transition duration-300 ease-in-out">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+         <div id="mobile-menu" class="fixed inset-0 bg-blue-900 bg-opacity-95 z-40 hidden md:hidden">
+            <div class="flex justify-end p-4">
+                 <button id="close-mobile-menu" class="text-white text-3xl focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col items-center space-y-6 text-lg text-white">
+                <a href="index.html" class="hover:text-blue-200 transition duration-300">Home</a>
+                <a href="calendar.html" class="hover:text-blue-200 transition duration-300">Appointments</a>
+                <a href="admin.html" class="text-blue-200 font-semibold">Admin Panel</a>
+                 <a href="index.html#pdi" class="pdi-button bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Book PDI</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12 text-center">
-        <h2 class="text-3xl font-semibold text-gray-800 mb-4">Manage Your Platform</h2>
-        <p class="text-gray-600 mb-6">Feature coming soon! Admins will be able to view user requests, manage appointments, and update car recommendations.</p>
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
-            <p class="text-gray-700">Stay tuned for powerful tools to streamline your operations.</p>
-        </div>
+    <main class="container mx-auto px-4 py-12 mt-16 min-h-screen flex items-center justify-center"> <section class="w-full max-w-2xl text-center animate__animated animate__fadeInUp"> <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8 md:p-12"> <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Admin Panel</h2>
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-xl mx-auto">Powerful administration features are currently under development. Stay tuned for tools to manage appointments, view inquiries, and update content.</p>
+                <div class="text-blue-600 dark:text-blue-400 text-6xl mb-6">
+                     <i class="fas fa-tools"></i> </div>
+                <p class="text-gray-600 dark:text-gray-400 italic">We're working hard to bring you a seamless admin experience!</p>
+             </div>
+        </section>
     </main>
 
-    <footer class="bg-blue-900 text-white text-center py-4">
-        <p>&copy; 2025 Gadi Sutra. All rights reserved.</p>
+    <footer class="bg-blue-900 text-white text-center py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-6 mb-4">
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-twitter text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                 <a href="#" class="text-white hover:text-blue-300 transition duration-300"><i class="fab fa-linkedin-in text-xl"></i></a>
+            </div>
+            <p class="text-sm opacity-90">© 2025 Gadi Sutra. All rights reserved.</p>
+            <p class="text-xs mt-1 opacity-80">Crafted with <span class="heart text-red-500">❤️</span> in India</p>
+        </div>
     </footer>
-</body>
+
+    <script src="script.js"></script> </body>
 </html>
