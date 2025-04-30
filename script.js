@@ -271,4 +271,78 @@ document.addEventListener('DOMContentLoaded', () => {
         // Also close menu when a link inside is clicked (handled by smooth scroll logic)
     }
 
+    window.addEventListener("load", () => {
+        document.getElementById("user-popup").classList.remove("hidden");
+      });
+      
+      document.getElementById("user-info-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        document.getElementById("user-popup").classList.add("hidden");
+        // Optionally process form data here
+      });
+      
+      document.getElementById("popup-close").addEventListener("click", () => {
+        document.getElementById("user-popup").classList.add("hidden");
+      });
+      
+      document.getElementById("user-info-form").addEventListener("submit", function (e) {
+        const mobileInput = document.getElementById("mobile-number");
+        const errorText = document.getElementById("mobile-error");
+      
+        const isValid = /^\d{10}$/.test(mobileInput.value);
+      
+        if (!isValid) {
+          e.preventDefault();
+          errorText.classList.remove("hidden");
+          mobileInput.classList.add("border-red-500");
+        } else {
+          errorText.classList.add("hidden");
+          mobileInput.classList.remove("border-red-500");
+          document.getElementById("user-popup").classList.add("hidden");
+          // Optionally handle form submission
+        }
+
+        document.getElementById("mobile-number").addEventListener("input", function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 10);
+          });
+
+      });
+
+      const scrollLeftBtn = document.getElementById('scroll-left');
+        const scrollRightBtn = document.getElementById('scroll-right');
+        const blogCarousel = document.getElementById('blog-cards');
+
+
+        scrollLeftBtn.addEventListener('click', () => {
+        blogCarousel.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+        blogCarousel.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+
+
+        fetch('blogData.json')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById("blog-cards");
+    
+          data.forEach(post => {
+            const card = document.createElement("div");
+            card.className = "flex-shrink-0 w-72 bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-2";
+            card.innerHTML = `
+              <img src="${post.image}" alt="${post.title}" class="w-full h-40 object-cover">
+              <div class="p-4">
+                <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${post.title}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">${post.description}</p>
+                <a href="${post.link}" class="text-blue-600 dark:text-blue-400 text-sm font-medium mt-2 inline-block hover:underline">Read More</a>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(error => console.error("Error loading blog data:", error));
+
+      
+
 }); // End DOMContentLoaded

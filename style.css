@@ -164,3 +164,40 @@ body, header, main, footer, section, div, button, input, textarea {
 .blog-container.active {
   cursor: grabbing;
 }
+
+@keyframes scroll-left {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-70%);
+    }
+  }
+  
+  .blog-container-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .blog-container.animate-scroll {
+    animation: scroll-left 20s linear infinite;
+    will-change: transform;
+  }
+  
+
+  #scroll-left, #scroll-right {
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  #scroll-left:hover, #scroll-right:hover {
+    transform: scale(1.1) translateY(-50%);
+  }
+  
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
