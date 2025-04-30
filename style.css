@@ -152,3 +152,75 @@ html {
     font-size: 2.5rem !important;
   }
 }
+
+
+/* Blog scroller container */
+.blog-section {
+    position: relative;
+    overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+  }
+  
+  /* Blog cards wrapper */
+  .blog-container {
+    display: flex;
+    width: max-content; /* Ensure wrapper is wide enough for all cards */
+    animation: scroll-right-to-left 20s linear infinite; /* Animation for scrolling */
+  }
+  
+  /* Individual blog card */
+  .blog-card {
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+    width: 300px; /* Adjust card width as needed */
+    margin-right: 24px; /* Space between cards */
+    transition: all 0.3s ease;
+  }
+  
+  /* Pause animation on hover (optional) */
+  .blog-container:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Keyframes for right-to-left infinite scrolling */
+  @keyframes scroll-right-to-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%); /* Move half the total width for seamless looping */
+    }
+  }
+  
+  /* Style for scroll buttons (if keeping them) */
+  #scroll-left, #scroll-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: white;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+  }
+  
+  #scroll-left:hover, #scroll-right:hover {
+    background: #f3f4f6;
+  }
+  
+  #scroll-left {
+    left: 10px;
+  }
+  
+  #scroll-right {
+    right: 10px;
+  }
+  
+  /* Hide default scrollbar */
+  .blog-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .blog-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
