@@ -323,25 +323,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         fetch('blogData.json')
-        .then(response => response.json())
-        .then(data => {
-          const container = document.getElementById("blog-cards");
-    
-          data.forEach(post => {
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("blog-cards");
+
+                // Original cards
+                data.forEach(post => {
+                container.appendChild(createBlogCard(post));
+                });
+
+                // Clone them for seamless looping
+                data.forEach(post => {
+                container.appendChild(createBlogCard(post));
+                });
+            })
+            .catch(error => console.error("Error loading blog data:", error));
+
+            function createBlogCard(post) {
             const card = document.createElement("div");
             card.className = "flex-shrink-0 w-72 bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-xl transform hover:-translate-y-2";
             card.innerHTML = `
-              <img src="${post.image}" alt="${post.title}" class="w-full h-40 object-cover">
-              <div class="p-4">
+                <img src="${post.image}" alt="${post.title}" class="w-full h-40 object-cover">
+                <div class="p-4">
                 <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${post.title}</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">${post.description}</p>
                 <a href="${post.link}" class="text-blue-600 dark:text-blue-400 text-sm font-medium mt-2 inline-block hover:underline">Read More</a>
-              </div>
+                </div>
             `;
-            container.appendChild(card);
-          });
-        })
-        .catch(error => console.error("Error loading blog data:", error));
+            return card;
+            }
+
+            let blogTrack = document.getElementById("blog-cards");
+
+            let scrollSpeed = 1;
+
+            function autoScroll() {
+            blogTrack.scrollLeft += scrollSpeed;
+
+            // Reset to the start when halfway through
+            if (blogTrack.scrollLeft >= blogTrack.scrollWidth / 2) {
+                blogTrack.scrollLeft = 0;
+            }
+
+            requestAnimationFrame(autoScroll);
+            }
+
+            autoScroll();
+
+            blogTrack.addEventListener("mouseenter", () => (scrollSpeed = 0));
+            blogTrack.addEventListener("mouseleave", () => (scrollSpeed = 1));
+
+
 
       
 
