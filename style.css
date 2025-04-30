@@ -318,7 +318,7 @@ html {
   }
   
   .blog-container {
-    animation: scroll 30s linear infinite;
+    animation: scroll 50s linear infinite;
   }
   
   .blog-section:hover .blog-container {
