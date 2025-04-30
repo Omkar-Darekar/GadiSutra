@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
             blogTrack.addEventListener("mouseleave", () => (scrollSpeed = 1));  // Resume scrolling when mouse leaves
 
 
-
+            initBlogCarousel();
       
 
 }); // End DOMContentLoaded
@@ -574,5 +574,107 @@ function initTypedJS() {
           overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         }
       });
+    });
+  }
+
+
+
+  // Blog carousel functionality
+function initBlogCarousel() {
+    const blogSection = document.querySelector('.blog-section');
+    const blogContainer = document.querySelector('.blog-container');
+    const blogCards = document.getElementById('blog-cards');
+    const scrollLeftBtn = document.getElementById('scroll-left');
+    const scrollRightBtn = document.getElementById('scroll-right');
+  
+    // Check if elements exist
+    if (!blogSection || !blogContainer || !blogCards) return;
+  
+    // Fetch blog data
+    fetch('blogData.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (!data || !data.length) {
+          throw new Error('No blog data available');
+        }
+  
+        // Clear existing content
+        blogCards.innerHTML = '';
+  
+        // Create blog cards
+        data.forEach(post => {
+          blogCards.appendChild(createBlogCard(post));
+        });
+  
+        // Duplicate cards for seamless looping
+        data.forEach(post => {
+          blogCards.appendChild(createBlogCard(post));
+        });
+  
+        // Initialize auto-scroll
+        setupAutoScroll();
+      })
+      .catch(error => {
+        console.error('Error loading blog data:', error);
+        blogSection.style.display = 'none'; // Hide section if there's an error
+      });
+  
+    // Scroll button functionality
+    if (scrollLeftBtn && scrollRightBtn) {
+      scrollLeftBtn.addEventListener('click', () => {
+        blogContainer.scrollBy({
+          left: -300,
+          behavior: 'smooth'
+        });
+      });
+  
+      scrollRightBtn.addEventListener('click', () => {
+        blogContainer.scrollBy({
+          left: 300,
+          behavior: 'smooth'
+        });
+      });
+    }
+  
+    // Pause auto-scroll on hover
+    blogContainer.addEventListener('mouseenter', () => {
+      blogContainer.style.animationPlayState = 'paused';
+    });
+  
+    blogContainer.addEventListener('mouseleave', () => {
+      blogContainer.style.animationPlayState = 'running';
+    });
+  }
+  
+  function createBlogCard(post) {
+    const card = document.createElement('div');
+    card.className = 'blog-card dark:bg-gray-700';
+    card.innerHTML = `
+      <img src="${post.image}" alt="${post.title}" class="w-full">
+      <div class="blog-card-content">
+        <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">${post.title}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400">${post.description}</p>
+        <a href="${post.link}" class="mt-3 inline-flex items-center">
+          Read More <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    `;
+    return card;
+  }
+  
+  function setupAutoScroll() {
+    const blogContainer = document.querySelector('.blog-container');
+    const blogCards = document.getElementById('blog-cards');
+    
+    // Reset to start when halfway through
+    blogContainer.addEventListener('animationiteration', () => {
+      if (blogContainer.scrollLeft >= blogCards.scrollWidth / 2) {
+        blogContainer.scrollLeft = 0;
+      }
     });
   }

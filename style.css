@@ -154,73 +154,173 @@ html {
 }
 
 
-/* Blog scroller container */
+/* Blog section improvements */
 .blog-section {
     position: relative;
-    overflow: hidden; /* Hide overflow to prevent horizontal scrollbar */
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    border-radius: 1rem;
+    overflow: hidden;
   }
   
-  /* Blog cards wrapper */
+  .blog-section.dark {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  }
+  
+  .blog-section h2 {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .blog-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #10b981);
+  }
+  
   .blog-container {
     display: flex;
-    width: max-content; /* Ensure wrapper is wide enough for all cards */
-    animation: scroll-right-to-left 20s linear infinite; /* Animation for scrolling */
+    width: max-content;
+    padding: 1rem 0;
+    will-change: transform;
   }
   
-  /* Individual blog card */
   .blog-card {
-    flex: 0 0 auto; /* Prevent cards from shrinking */
-    width: 300px; /* Adjust card width as needed */
-    margin-right: 24px; /* Space between cards */
+    flex: 0 0 auto;
+    width: 300px;
+    margin: 0 1rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: white;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blog-card.dark {
+    background: #2d3748;
+  }
+  
+  .blog-card img {
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .blog-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  .blog-card-content {
+    padding: 1.25rem;
+  }
+  
+  .blog-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1a202c;
+  }
+  
+  .blog-card.dark h3 {
+    color: #f7fafc;
+  }
+  
+  .blog-card p {
+    font-size: 0.875rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .blog-card.dark p {
+    color: #cbd5e0;
+  }
+  
+  .blog-card a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #3b82f6;
     transition: all 0.3s ease;
   }
   
-  /* Pause animation on hover (optional) */
-  .blog-container:hover {
-    animation-play-state: paused;
+  .blog-card a:hover {
+    color: #2563eb;
+    transform: translateX(5px);
   }
   
-  /* Keyframes for right-to-left infinite scrolling */
-  @keyframes scroll-right-to-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%); /* Move half the total width for seamless looping */
-    }
+  .blog-card a i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
   }
   
-  /* Style for scroll buttons (if keeping them) */
+  .blog-card a:hover i {
+    transform: translateX(3px);
+  }
+  
   #scroll-left, #scroll-right {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
     background: white;
-    padding: 8px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
   }
   
   #scroll-left:hover, #scroll-right:hover {
-    background: #f3f4f6;
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
   }
   
   #scroll-left {
-    left: 10px;
+    left: 20px;
   }
   
   #scroll-right {
-    right: 10px;
+    right: 20px;
   }
   
-  /* Hide default scrollbar */
+  /* Infinite scroll animation */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
   .blog-container {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    animation: scroll 30s linear infinite;
   }
   
-  .blog-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+  .blog-section:hover .blog-container {
+    animation-play-state: paused;
   }
