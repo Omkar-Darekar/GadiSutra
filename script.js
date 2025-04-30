@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Typed.js if available
+  if (typeof Typed !== 'undefined') {
+    initTypedJS();
+  }
+  
+  // Enhanced form validation
+  enhanceFormValidation();
+  
+  // Back to top button
+  initBackToTop();
+  
+  // Improved car card interactions
+  initCarCards();
+
+
     // --- Dark Mode Toggle ---
     const darkToggle = document.getElementById('dark-toggle');
     if (darkToggle) {
@@ -378,3 +393,186 @@ document.addEventListener('DOMContentLoaded', () => {
       
 
 }); // End DOMContentLoaded
+
+
+
+
+// New functions to add
+function initTypedJS() {
+    const heroHeadline = document.querySelector('.hero-headline');
+    if (heroHeadline) {
+      // Save original text
+      const originalText = heroHeadline.textContent;
+      
+      // Initialize Typed.js
+      new Typed(heroHeadline, {
+        strings: [originalText, 'Find Your Perfect Vehicle', 'Expert Car Consultations'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+        showCursor: false
+      });
+    }
+  }
+  
+  function enhanceFormValidation() {
+    const forms = document.querySelectorAll('form');
+    
+    forms.forEach(form => {
+      const inputs = form.querySelectorAll('input, textarea, select');
+      
+      inputs.forEach(input => {
+        // Real-time validation
+        input.addEventListener('input', function() {
+          validateField(this);
+        });
+        
+        // Focus styles
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
+          validateField(this);
+        });
+      });
+      
+      // Form submission
+      form.addEventListener('submit', function(e) {
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('[required]');
+        
+        requiredFields.forEach(field => {
+          if (!validateField(field)) {
+            isValid = false;
+          }
+        });
+        
+        if (!isValid) {
+          e.preventDefault();
+          // Show general error message
+          const formMessage = form.querySelector('#form-message');
+          if (formMessage) {
+            formMessage.textContent = 'Please fill in all required fields correctly.';
+            formMessage.className = 'mt-4 text-center text-sm font-medium text-red-600';
+          }
+        } else {
+          // Show loading state
+          const submitButton = form.querySelector('button[type="submit"]');
+          if (submitButton) {
+            submitButton.innerHTML = '<span class="loading-spinner"></span> Processing...';
+            submitButton.disabled = true;
+          }
+        }
+      });
+    });
+    
+    function validateField(field) {
+      const errorElement = field.nextElementSibling;
+      
+      // Clear previous errors
+      if (errorElement && errorElement.classList.contains('error-message')) {
+        errorElement.remove();
+      }
+      
+      // Check required fields
+      if (field.hasAttribute('required') && !field.value.trim()) {
+        showError(field, 'This field is required');
+        return false;
+      }
+      
+      // Email validation
+      if (field.type === 'email' && field.value.trim()) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(field.value)) {
+          showError(field, 'Please enter a valid email address');
+          return false;
+        }
+      }
+      
+      // Phone validation
+      if (field.type === 'tel' && field.value.trim() && field.hasAttribute('pattern')) {
+        const pattern = new RegExp(field.getAttribute('pattern'));
+        if (!pattern.test(field.value)) {
+          showError(field, 'Please enter a valid phone number');
+          return false;
+        }
+      }
+      
+      // Date validation
+      if (field.type === 'date' && field.value) {
+        const selectedDate = new Date(field.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+          showError(field, 'Please select a future date');
+          return false;
+        }
+      }
+      
+      // If all validations pass
+      field.classList.remove('input-error');
+      field.classList.add('input-success');
+      return true;
+    }
+    
+    function showError(field, message) {
+      field.classList.add('input-error');
+      field.classList.remove('input-success');
+      
+      const errorElement = document.createElement('p');
+      errorElement.className = 'error-message';
+      errorElement.textContent = message;
+      
+      field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+  }
+  
+  function initBackToTop() {
+    const backToTop = document.createElement('button');
+    backToTop.id = 'back-to-top';
+    backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    backToTop.className = 'fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 flex items-center justify-center w-12 h-12';
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.remove('opacity-0', 'invisible');
+        backToTop.classList.add('opacity-100', 'visible');
+      } else {
+        backToTop.classList.add('opacity-0', 'invisible');
+        backToTop.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTop.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+  
+  function initCarCards() {
+    const carCards = document.querySelectorAll('.car-card');
+    
+    carCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        const overlay = card.querySelector('.car-card-overlay');
+        if (overlay) {
+          overlay.style.opacity = '1';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        }
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        const overlay = card.querySelector('.car-card-overlay');
+        if (overlay) {
+          overlay.style.opacity = '0.9';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        }
+      });
+    });
+  }
