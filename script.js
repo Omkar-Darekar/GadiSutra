@@ -327,17 +327,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 const container = document.getElementById("blog-cards");
 
-                // Original cards
+                // Add blog posts initially
                 data.forEach(post => {
-                container.appendChild(createBlogCard(post));
+                    container.appendChild(createBlogCard(post));
                 });
 
-                // Clone them for seamless looping
+                // Duplicate the posts for seamless looping
                 data.forEach(post => {
-                container.appendChild(createBlogCard(post));
+                    container.appendChild(createBlogCard(post));
                 });
             })
             .catch(error => console.error("Error loading blog data:", error));
+
 
             function createBlogCard(post) {
             const card = document.createElement("div");
@@ -354,24 +355,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let blogTrack = document.getElementById("blog-cards");
-
             let scrollSpeed = 1;
 
             function autoScroll() {
-            blogTrack.scrollLeft += scrollSpeed;
+                blogTrack.scrollLeft += scrollSpeed;
 
-            // Reset to the start when halfway through
-            if (blogTrack.scrollLeft >= blogTrack.scrollWidth / 2) {
-                blogTrack.scrollLeft = 0;
-            }
+                // Reset to the start seamlessly without resetting abruptly
+                if (blogTrack.scrollLeft >= blogTrack.scrollWidth / 2) {
+                    blogTrack.scrollLeft = 0;
+                }
 
-            requestAnimationFrame(autoScroll);
+                requestAnimationFrame(autoScroll);
             }
 
             autoScroll();
 
-            blogTrack.addEventListener("mouseenter", () => (scrollSpeed = 0));
-            blogTrack.addEventListener("mouseleave", () => (scrollSpeed = 1));
+            blogTrack.addEventListener("mouseenter", () => (scrollSpeed = 0));  // Pause scrolling when mouse enters
+            blogTrack.addEventListener("mouseleave", () => (scrollSpeed = 1));  // Resume scrolling when mouse leaves
 
 
 
